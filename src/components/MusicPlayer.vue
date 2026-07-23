@@ -662,7 +662,7 @@ onUnmounted(() => {
   margin: 0;
   padding: 6px 0;
   text-align: center;
-  font-family: var(--sans);
+  font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', var(--sans);
   font-size: 0.95rem;
   line-height: 1.45;
   color: rgba(26, 26, 46, 0.35);
@@ -693,7 +693,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--sans);
+  font-family: 'Ma Shan Zheng', var(--sans);
   font-size: 0.95rem;
   color: var(--text-light);
   opacity: 0.7;
