@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "从零搭建个人博客网站",
+    "date": "2026-07-20",
+    "tag": "前端",
+    "excerpt": "记录如何使用 Vue 3 + Vite 从零搭建一个极简风格的个人博客，包含项目初始化、路由配置和页面设计。",
+    "content": "## 前言\n\n一直想拥有一个属于自己的博客网站，记录学习心得和技术笔记。经过一番调研，决定使用 Vue 3 + Vite 来搭建。\n\n## 技术选型\n\n选择 Vue 3 的原因很简单：响应式系统强大、组合式 API 优雅、生态成熟。Vite 则提供了极速的开发体验。\n\n## 项目结构\n\n```\nsrc/\n├── router/        # 路由配置\n├── views/         # 页面组件\n├── components/    # 通用组件\n├── data/          # 文章数据\n├── App.vue        # 根组件\n└── main.js        # 入口文件\n```\n\n## 设计理念\n\n极简主义（Minimalism）的核心是「少即是多」。我选择了大量的留白、克制的配色和清晰的排版层级，让读者能够专注于内容本身。\n\n- **配色**：白色背景 + 深灰文字 + 蓝色点缀\n- **字体**：系统默认字体栈，保证加载速度\n- **排版**：窄栏居中，最大宽度 720px\n\n## 结语\n\n搭建博客的过程本身就是一种学习。后续计划加入标签筛选、搜索功能和深色模式切换。"
+  },
+  {
+    "id": 2,
+    "title": "CSS Grid 布局完全指南",
+    "date": "2026-07-15",
+    "tag": "CSS",
+    "excerpt": "深入讲解 CSS Grid 布局的核心概念和实用技巧，从基础网格到复杂响应式布局一网打尽。",
+    "content": "## 什么是 CSS Grid\n\nCSS Grid Layout 是 CSS 中最强大的布局系统。它是一个二维布局系统，可以同时处理行和列。\n\n## 核心概念\n\n### 网格容器\n\n使用 `display: grid` 将一个元素变为网格容器：\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-gap: 20px;\n}\n```\n\n### 网格线\n\n网格线是构成网格结构的分隔线，分为水平网格线和垂直网格线。\n\n### 网格轨道\n\n网格轨道是两条相邻网格线之间的空间，即行或列。\n\n## 实用技巧\n\n1. **`fr` 单位** —  fractional unit，按比例分配剩余空间\n2. **`auto-fit` 与 `auto-fill`** — 自动填充列数\n3. **`minmax()`** — 设置轨道最小/最大值\n\n## 实战：响应式卡片布局\n\n```css\n.card-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 24px;\n}\n```\n\n这个一行代码就实现了从多列到单列的自动切换！"
+  },
+  {
+    "id": 3,
+    "title": "JavaScript 异步编程演进",
+    "date": "2026-07-10",
+    "tag": "JavaScript",
+    "excerpt": "从回调地狱到 Promise 再到 async/await，回顾 JavaScript 异步编程的完整进化历程。",
+    "content": "## 回调时代\n\n早期的 JavaScript 异步编程依赖回调函数：\n\n```javascript\nfs.readFile('file.txt', (err, data) => {\n  if (err) throw err;\n  console.log(data);\n});\n```\n\n当多个异步操作需要顺序执行时，就产生了「回调地狱」。\n\n## Promise 时代\n\nES6 引入了 Promise，提供了更优雅的异步处理方式：\n\n```javascript\nfetch('/api/data')\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(err));\n```\n\n## async/await 时代\n\nES2017 带来了 async/await，让异步代码看起来像同步代码：\n\n```javascript\nasync function getData() {\n  try {\n    const res = await fetch('/api/data');\n    const data = await res.json();\n    return data;\n  } catch (err) {\n    console.error(err);\n  }\n}\n```\n\n## 总结\n\nJavaScript 的异步编程经历了从回调 → Promise → async/await 的演进，每一步都让代码更简洁、更易读。"
+  },
+  {
+    "id": 4,
+    "title": "设计模式在前端的应用",
+    "date": "2026-07-05",
+    "tag": "架构",
+    "excerpt": "观察者模式、单例模式、策略模式等经典设计模式在前端开发中的实际应用场景分析。",
+    "content": "## 为什么前端需要设计模式\n\n设计模式是解决特定问题的成熟方案。虽然前端框架已经帮我们处理了很多问题，但理解设计模式可以让我们写出更可维护的代码。\n\n## 观察者模式\n\nVue 的响应式系统本质上就是观察者模式的实现。当数据变化时，所有依赖该数据的视图都会自动更新。\n\n## 单例模式\n\n在前端中，全局状态管理（如 Pinia Store）、弹窗管理器等经常使用单例模式。\n\n## 策略模式\n\n表单验证是策略模式的经典应用场景：\n\n```javascript\nconst strategies = {\n  required: val => !!val || '必填',\n  email: val => /\\S+@\\S+/.test(val) || '邮箱格式错误',\n  minLength: len => val => val.length >= len || `最少${len}位`\n};\n```\n\n## 结语\n\n设计模式不是银弹，但理解它们能帮助我们更好地理解框架的设计思想。"
+  },
+  {
+    "id": 5,
+    "title": "Vue 3 Composition API 实战",
+    "date": "2026-06-28",
+    "tag": "Vue",
+    "excerpt": "从 Options API 迁移到 Composition API 的完整指南，涵盖 ref、reactive、watch、computed 等核心 API。",
+    "content": "## 为什么选择 Composition API\n\n相比 Options API，Composition API 提供了更好的逻辑复用和代码组织方式。\n\n## 核心 API\n\n### ref 与 reactive\n\n```javascript\nimport { ref, reactive } from 'vue';\n\nconst count = ref(0);        // 基本类型\nconst state = reactive({     // 对象类型\n  name: 'Hello',\n  items: []\n});\n```\n\n### computed\n\n```javascript\nconst doubleCount = computed(() => count.value * 2);\n```\n\n### watch\n\n```javascript\nwatch(count, (newVal, oldVal) => {\n  console.log(`count changed: ${oldVal} -> ${newVal}`);\n});\n```\n\n## 组合函数\n\nComposition API 的最大优势是可以轻松创建可复用的组合函数：\n\n```javascript\nfunction useMouse() {\n  const x = ref(0);\n  const y = ref(0);\n  \n  onMounted(() => {\n    window.addEventListener('mousemove', (e) => {\n      x.value = e.pageX;\n      y.value = e.pageY;\n    });\n  });\n  \n  return { x, y };\n}\n```\n\n## 总结\n\nComposition API 并不是要替代 Options API，而是提供了另一种组织代码的思路。"
+  }
+]
