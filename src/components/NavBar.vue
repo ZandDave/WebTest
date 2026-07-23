@@ -1,17 +1,7 @@
-<script setup>
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-</script>
-
 <template>
   <nav class="navbar">
     <div class="nav-inner">
       <router-link to="/" class="logo">森林</router-link>
-      <div class="nav-links">
-        <router-link to="/" :class="{ active: route.path === '/' }">文章</router-link>
-        <router-link to="/about" :class="{ active: route.path === '/about' }">关于</router-link>
-      </div>
     </div>
   </nav>
 </template>
@@ -32,7 +22,7 @@ const route = useRoute()
   height: 56px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .logo {
   font-size: 1.3rem;
@@ -40,22 +30,5 @@ const route = useRoute()
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.5px;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-}
-.nav-links a {
-  font-size: 0.95rem;
-  color: var(--text-light);
-  text-decoration: none;
-  transition: color 0.2s;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
-}
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--text);
-  border-bottom-color: var(--accent);
 }
 </style>
