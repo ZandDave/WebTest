@@ -164,22 +164,32 @@ onMounted(async () => {
   window.addEventListener('resize', updateScrollOffset)
 })
 
-function ensureAudio() {
+let audioLoading = false
+
+async function ensureAudio() {
   if (audio.value) return
-  audio.value = new Audio(AUDIO_SRC)
-  audio.value.preload = 'auto'
-  audio.value.addEventListener('loadedmetadata', () => {
-    duration.value = audio.value.duration
-  })
-  audio.value.addEventListener('ended', () => {
-    isPlaying.value = false
-    applyTime(0)
-    currentLine.value = -1
-    cancelAnimationFrame(rafId)
-  })
-  audio.value.addEventListener('seeked', () => {
-    if (!isSeeking.value) syncFromAudio()
-  })
+  if (audioLoading) return
+  audioLoading = true
+  try {
+    const response = await fetch(AUDIO_SRC)
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+    audio.value = new Audio(url)
+    audio.value.preload = 'auto'
+    audio.value.addEventListener('loadedmetadata', () => {
+      duration.value = audio.value.duration
+    })
+    audio.value.addEventListener('ended', () => {
+      isPlaying.value = false
+      applyTime(0)
+      currentLine.value = -1
+      cancelAnimationFrame(rafId)
+    })
+  } catch (e) {
+    console.error('音频加载失败:', e)
+  } finally {
+    audioLoading = false
+  }
 }
 
 async function ensureDuration() {
@@ -236,8 +246,9 @@ function onScrubPointerUp(e) {
   // 导致 audio.currentTime 未真正跳转而覆盖视觉时间
 }
 
-function togglePlay() {
-  ensureAudio()
+async function togglePlay() {
+  await ensureAudio()
+  if (!audio.value) return
   if (isPlaying.value) {
     audio.value.pause()
     isPlaying.value = false
