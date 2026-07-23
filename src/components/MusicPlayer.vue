@@ -5,9 +5,12 @@ const AUDIO_SRC = '/music/Wozwald.mp3'
 const LRC_SRC = '/music/Wozwald.lrc'
 /** 整首歌词相对音频的偏移（秒）。歌词偏晚用负数，偏早用正数 */
 const OFFSET = 0
+/** 唱片中心图片，改成你自己的图片路径 */
+const VINYL_IMAGE = '/music/vinyl-center.jpg'
 
 const audio = ref(null)
 const isPlaying = ref(false)
+const isAudioReady = ref(false)
 const isHovered = ref(false)
 const isTouchPinned = ref(false) // 触屏：点按图标临时展开
 const dockMode = ref(false) // true = 底部常驻滚动歌词
@@ -162,6 +165,7 @@ onMounted(async () => {
     lyrics.value = [{ time: 0, text: '歌词加载失败' }]
   }
   window.addEventListener('resize', updateScrollOffset)
+  ensureAudio() // 后台预加载音频
 })
 
 let audioLoading = false
@@ -185,6 +189,7 @@ async function ensureAudio() {
       currentLine.value = -1
       cancelAnimationFrame(rafId)
     })
+    isAudioReady.value = true
   } catch (e) {
     console.error('音频加载失败:', e)
   } finally {
@@ -459,12 +464,18 @@ onUnmounted(() => {
       </div>
     </Transition>
 
+    <!-- 加载中不显示 -->
     <button
-      class="player-fab"
+      v-if="isAudioReady"
+      class="player-fab vinyl-record"
+      :class="{ spinning: isPlaying }"
       @click="onFabClick"
       :title="isPlaying ? '播放中 · 悬停查看歌词' : '悬停查看 / 点击播放'"
     >
-      <span class="fab-icon">🎵</span>
+      <span class="vinyl-grooves"></span>
+      <span class="vinyl-center">
+        <img :src="VINYL_IMAGE" alt="" @error="$event.target.style.display='none'" />
+      </span>
     </button>
   </div>
 </template>
@@ -491,33 +502,96 @@ onUnmounted(() => {
 }
 
 .player-fab {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
   border: none;
   cursor: pointer;
-  font-size: 1.4rem;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
+  background: transparent;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15);
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  position: relative;
 }
-.music-player:hover .player-fab,
-.music-player.expanded .player-fab {
-  transform: scale(1.06);
-  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.45);
+.player-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.35);
 }
-.music-player.playing .fab-icon {
-  animation: musicPulse 2s ease-in-out infinite;
+
+/* 黑胶唱片 */
+.vinyl-record {
+  background: radial-gradient(circle at center,
+    #1a1a1a 0%, #1a1a1a 28%,
+    #111 28.5%, #222 30%, #111 31.5%,
+    #1a1a1a 32%, #1a1a1a 42%,
+    #151515 42.5%, #1f1f1f 44%, #151515 45.5%,
+    #1a1a1a 46%, #1a1a1a 54%,
+    #131313 54.5%, #1d1d1d 56%, #131313 57.5%,
+    #1a1a1a 58%, #1a1a1a 100%
+  );
+  overflow: hidden;
 }
-@keyframes musicPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+.vinyl-record::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg, rgba(255,255,255,0.03) 20deg, transparent 40deg,
+    transparent 60deg, rgba(255,255,255,0.02) 80deg, transparent 100deg,
+    transparent 120deg, rgba(255,255,255,0.04) 140deg, transparent 160deg,
+    transparent 180deg, rgba(255,255,255,0.02) 200deg, transparent 220deg,
+    transparent 240deg, rgba(255,255,255,0.03) 260deg, transparent 280deg,
+    transparent 300deg, rgba(255,255,255,0.02) 320deg, transparent 340deg
+  );
+  pointer-events: none;
 }
+.vinyl-center {
+  position: absolute;
+  width: 38%;
+  height: 38%;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  border: 2px solid #2a2a2a;
+  box-shadow: 0 0 0 1px #3a3a3a inset;
+}
+.vinyl-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* 中心孔 */
+.vinyl-record::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 3;
+  box-shadow: 0 0 0 2px #1a1a1a;
+}
+
+/* 旋转动画 */
+.vinyl-record.spinning {
+  animation: vinylSpin 3s linear infinite;
+}
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.vinyl-record.spinning:hover {
+  animation: vinylSpin 3s linear infinite;
+  transform: none;
+}
+
+/* 隐藏旧图标 */
+.fab-icon { display: none; }
 
 .acrylic-panel {
   width: min(420px, calc(100vw - 48px));
