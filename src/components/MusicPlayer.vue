@@ -167,7 +167,7 @@ onMounted(async () => {
 function ensureAudio() {
   if (audio.value) return
   audio.value = new Audio(AUDIO_SRC)
-  audio.value.preload = 'metadata'
+  audio.value.preload = 'auto'
   audio.value.addEventListener('loadedmetadata', () => {
     duration.value = audio.value.duration
   })
@@ -232,7 +232,8 @@ function onScrubPointerUp(e) {
   } catch {
     /* already released */
   }
-  syncFromAudio()
+  // 不调用 syncFromAudio()，避免 Cloudflare CDN 不支持 Range 请求
+  // 导致 audio.currentTime 未真正跳转而覆盖视觉时间
 }
 
 function togglePlay() {
