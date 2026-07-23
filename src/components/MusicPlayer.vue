@@ -458,14 +458,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-@font-face {
-  font-family: '851ShouShu';
-  src: url('/fonts/851ShouShu-2.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* —— 悬停模式：右下角 —— */
 .music-player {
   position: fixed;
@@ -670,7 +662,7 @@ onUnmounted(() => {
   margin: 0;
   padding: 6px 0;
   text-align: center;
-  font-family: '851ShouShu', var(--sans);
+  font-family: var(--sans);
   font-size: 0.95rem;
   line-height: 1.45;
   color: rgba(26, 26, 46, 0.35);
@@ -701,7 +693,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: '851ShouShu', var(--sans);
+  font-family: var(--sans);
   font-size: 0.95rem;
   color: var(--text-light);
   opacity: 0.7;
