@@ -277,7 +277,7 @@ const progress = computed(() =>
 )
 
 const currentText = computed(() => {
-  if (currentLine.value < 0) return isPlaying.value ? '♪' : '点击播放'
+  if (currentLine.value < 0) return ''
   return lyrics.value[currentLine.value]?.text ?? ''
 })
 
@@ -364,7 +364,9 @@ onUnmounted(() => {
           title="恢复悬停模式"
           aria-label="恢复悬停模式"
         >
-          📌
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="10" height="10" rx="1.5"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -457,7 +459,11 @@ onUnmounted(() => {
               title="固定到底部滚动歌词"
               aria-label="固定到底部滚动歌词"
             >
-              📍
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="1" y="4" width="12" height="9" rx="1.5"/>
+                <line x1="4" y1="2" x2="4" y2="4"/>
+                <line x1="10" y1="2" x2="10" y2="4"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -470,7 +476,7 @@ onUnmounted(() => {
       class="player-fab vinyl-record"
       :class="{ spinning: isPlaying }"
       @click="onFabClick"
-      :title="isPlaying ? '播放中 · 悬停查看歌词' : '悬停查看 / 点击播放'"
+      :title="isPlaying ? '播放中' : '播放音乐'"
     >
       <span class="vinyl-grooves"></span>
       <span class="vinyl-center">
@@ -627,21 +633,20 @@ onUnmounted(() => {
 .acrylic-frame {
   border-radius: 20px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(30, 30, 40, 0.92);
   backdrop-filter: blur(22px) saturate(1.4);
   -webkit-backdrop-filter: blur(22px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 8px 32px rgba(15, 23, 42, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 -1px 0 rgba(15, 23, 42, 0.04) inset;
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
 .music-player.playing .acrylic-frame,
 .acrylic-dock.playing .acrylic-frame {
-  border-color: rgba(59, 130, 246, 0.35);
+  border-color: rgba(230, 168, 23, 0.35);
   box-shadow:
-    0 10px 36px rgba(59, 130, 246, 0.18),
-    0 1px 0 rgba(255, 255, 255, 0.85) inset;
+    0 10px 36px rgba(230, 168, 23, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
 }
 
 .dock-body {
@@ -658,14 +663,14 @@ onUnmounted(() => {
   height: 42px;
   border-radius: 50%;
   border: none;
-  background: var(--accent);
-  color: #fff;
+  background: #e6a817;
+  color: #1a1a1a;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 4px 12px rgba(230, 168, 23, 0.35);
   transition: transform 0.15s, opacity 0.15s;
 }
 .dock-play:hover {
@@ -681,16 +686,17 @@ onUnmounted(() => {
   border: none;
   border-radius: 8px;
   background: transparent;
+  color: rgba(255, 255, 255, 0.45);
   cursor: pointer;
-  font-size: 0.95rem;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 0.15s, color 0.2s;
 }
 .mode-btn:hover {
-  background: rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
   transform: scale(1.08);
 }
 
@@ -707,21 +713,21 @@ onUnmounted(() => {
   align-items: baseline;
   gap: 8px;
   font-size: 0.72rem;
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.5);
   padding: 0 2px;
 }
 .dock-title {
   font-weight: 600;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.78rem;
 }
 .dock-artist {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 .dock-time {
   margin-left: auto;
   font-variant-numeric: tabular-nums;
-  opacity: 0.75;
+  opacity: 0.6;
 }
 
 .lyrics-viewport {
@@ -729,9 +735,9 @@ onUnmounted(() => {
   height: 72px;
   overflow: hidden;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -761,7 +767,7 @@ onUnmounted(() => {
   font-family: '851ShouShu', var(--sans);
   font-size: 0.95rem;
   line-height: 1.45;
-  color: rgba(26, 26, 46, 0.35);
+  color: rgba(255, 255, 255, 0.3);
   transition:
     color 0.35s ease,
     font-size 0.35s ease,
@@ -772,13 +778,13 @@ onUnmounted(() => {
   text-overflow: ellipsis;
 }
 .lyric-line.past {
-  color: rgba(26, 26, 46, 0.28);
+  color: rgba(255, 255, 255, 0.15);
 }
 .lyric-line.next {
-  color: rgba(26, 26, 46, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 .lyric-line.active {
-  color: var(--accent);
+  color: #fff;
   font-size: 1.12rem;
   transform: scale(1.02);
 }
@@ -791,7 +797,7 @@ onUnmounted(() => {
   justify-content: center;
   font-family: '851ShouShu', var(--sans);
   font-size: 0.95rem;
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.4);
   opacity: 0.7;
   pointer-events: none;
 }
@@ -806,7 +812,7 @@ onUnmounted(() => {
 }
 .scrub-time {
   font-size: 0.68rem;
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.5);
   font-variant-numeric: tabular-nums;
   min-width: 30px;
 }
@@ -828,12 +834,12 @@ onUnmounted(() => {
   width: 100%;
   height: 4px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 .scrubber-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  background: linear-gradient(90deg, #e6a817, #f5c842);
   transition: width 0.08s linear;
 }
 .scrubber.seeking .scrubber-fill {
@@ -847,8 +853,8 @@ onUnmounted(() => {
   margin-left: -6px;
   border-radius: 50%;
   background: #fff;
-  border: 2px solid var(--accent);
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
+  border: 2px solid #e6a817;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   transform: translateY(-50%) scale(0.85);
   transition: transform 0.15s ease, left 0.08s linear;
   pointer-events: none;
