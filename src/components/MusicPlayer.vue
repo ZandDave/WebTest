@@ -502,8 +502,8 @@ onUnmounted(() => {
 }
 
 .player-fab {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -523,13 +523,15 @@ onUnmounted(() => {
 /* 黑胶唱片 */
 .vinyl-record {
   background: radial-gradient(circle at center,
-    #1a1a1a 0%, #1a1a1a 28%,
-    #111 28.5%, #222 30%, #111 31.5%,
-    #1a1a1a 32%, #1a1a1a 42%,
-    #151515 42.5%, #1f1f1f 44%, #151515 45.5%,
-    #1a1a1a 46%, #1a1a1a 54%,
-    #131313 54.5%, #1d1d1d 56%, #131313 57.5%,
-    #1a1a1a 58%, #1a1a1a 100%
+    #1a1a1a 0%, #1a1a1a 47%,
+    #111 47.5%, #222 49%, #111 50.5%,
+    #1a1a1a 51%, #1a1a1a 58%,
+    #151515 58.5%, #1f1f1f 60%, #151515 61.5%,
+    #1a1a1a 62%, #1a1a1a 70%,
+    #131313 70.5%, #1d1d1d 72%, #131313 73.5%,
+    #1a1a1a 74%, #1a1a1a 82%,
+    #111 82.5%, #1f1f1f 84%, #111 85.5%,
+    #1a1a1a 86%, #1a1a1a 100%
   );
   overflow: hidden;
 }
@@ -551,8 +553,8 @@ onUnmounted(() => {
 }
 .vinyl-center {
   position: absolute;
-  width: 38%;
-  height: 38%;
+  width: 50%;
+  height: 50%;
   border-radius: 50%;
   overflow: hidden;
   z-index: 2;
