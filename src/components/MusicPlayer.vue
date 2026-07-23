@@ -298,7 +298,15 @@ onUnmounted(() => {
     <div class="acrylic-frame">
       <div class="dock-body">
         <button class="dock-play" @click="togglePlay" :aria-label="isPlaying ? '暂停' : '播放'">
-          {{ isPlaying ? '⏸' : '▶' }}
+          <!-- 暂停：两条粗竖线 -->
+          <svg v-if="isPlaying" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+            <rect x="3" y="3" width="5" height="12" rx="1"/>
+            <rect x="10" y="3" width="5" height="12" rx="1"/>
+          </svg>
+          <!-- 播放：三角形 -->
+          <svg v-else width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+            <polygon points="5,2 16,9 5,16"/>
+          </svg>
         </button>
 
         <div class="dock-main">
@@ -389,7 +397,13 @@ onUnmounted(() => {
               @click="togglePlay"
               :aria-label="isPlaying ? '暂停' : '播放'"
             >
-              {{ isPlaying ? '⏸' : '▶' }}
+              <svg v-if="isPlaying" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                <rect x="3" y="3" width="5" height="12" rx="1"/>
+                <rect x="10" y="3" width="5" height="12" rx="1"/>
+              </svg>
+              <svg v-else width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                <polygon points="5,2 16,9 5,16"/>
+              </svg>
             </button>
 
             <div class="dock-main">
