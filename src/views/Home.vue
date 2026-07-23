@@ -1,20 +1,4 @@
 <script setup>
-import { ref, computed } from 'vue'
-import PostCard from '../components/PostCard.vue'
-import postsData from '../data/posts.json'
-
-const posts = ref(postsData)
-const activeTag = ref('全部')
-
-const tags = computed(() => {
-  const set = new Set(postsData.map(p => p.tag))
-  return ['全部', ...set]
-})
-
-const filteredPosts = computed(() => {
-  if (activeTag.value === '全部') return posts.value
-  return posts.value.filter(p => p.tag === activeTag.value)
-})
 </script>
 
 <template>
@@ -27,22 +11,7 @@ const filteredPosts = computed(() => {
   </section>
 
   <section class="posts-section">
-    <div class="tag-filter">
-      <button
-        v-for="tag in tags"
-        :key="tag"
-        :class="['tag-btn', { active: activeTag === tag }]"
-        @click="activeTag = tag"
-      >
-        {{ tag }}
-      </button>
-    </div>
-
-    <div class="post-list">
-      <PostCard v-for="post in filteredPosts" :key="post.id" :post="post" />
-    </div>
-
-    <p v-if="filteredPosts.length === 0" class="empty-tip">暂无该标签的文章。</p>
+    <p class="empty-tip">还没有文章，敬请期待 ~</p>
   </section>
 </template>
 
@@ -62,36 +31,6 @@ const filteredPosts = computed(() => {
   font-size: 1.15rem;
   color: var(--text-light);
   line-height: 1.8;
-}
-.tag-filter {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-.tag-btn {
-  padding: 6px 18px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: transparent;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.tag-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.tag-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-}
-.post-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
 }
 .empty-tip {
   text-align: center;
