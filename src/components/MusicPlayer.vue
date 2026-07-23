@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 
-const AUDIO_SRC = '/music/Wozwald(feat.v_flower)-.mp3'
+const AUDIO_SRC = '/music/Wozwald%28feat.v_flower%29-.mp3'
 const LRC_SRC = '/music/Wozwald.lrc'
 /** 整首歌词相对音频的偏移（秒）。歌词偏晚用负数，偏早用正数 */
 const OFFSET = 0
@@ -713,6 +713,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 8px;
   padding: 2px 2px 0;
+  position: relative;
+  z-index: 1;
 }
 .scrub-time {
   font-size: 0.68rem;
