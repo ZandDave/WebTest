@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 
-const AUDIO_SRC = '/music/Wozwald%28feat.v_flower%29-.mp3'
+const AUDIO_SRC = '/music/Wozwald.mp3'
 const LRC_SRC = '/music/Wozwald.lrc'
 /** 整首歌词相对音频的偏移（秒）。歌词偏晚用负数，偏早用正数 */
 const OFFSET = 0
