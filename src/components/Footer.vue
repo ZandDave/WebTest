@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer-inner">
-      <p>© 2026 SCZ. Built with Vue 3 & Vite.</p>
+      <p>© 2026 森林. Built with Vue 3 & Vite.</p>
     </div>
   </footer>
 </template>

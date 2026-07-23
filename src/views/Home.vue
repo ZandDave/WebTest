@@ -3,7 +3,7 @@
 
 <template>
   <section class="hero">
-    <h1 class="hero-title">嗨，我是 SCZ 👋</h1>
+    <h1 class="hero-title">森林 🌲</h1>
     <p class="hero-desc">
       一名前端开发者，热爱技术、设计与写作。<br/>
       这里记录我的学习笔记与思考。

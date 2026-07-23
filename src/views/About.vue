@@ -6,8 +6,8 @@
     <h1 class="about-title">关于我</h1>
 
     <div class="about-card">
-      <div class="avatar">SCZ</div>
-      <h2>SCZ</h2>
+      <div class="avatar">森</div>
+      <h2>森林</h2>
       <p class="role">前端开发工程师</p>
       <p class="bio">
         热爱前端技术，专注于构建优雅、高性能的用户界面。<br />

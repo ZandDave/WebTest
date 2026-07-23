@@ -7,7 +7,7 @@ const route = useRoute()
 <template>
   <nav class="navbar">
     <div class="nav-inner">
-      <router-link to="/" class="logo">SCZ</router-link>
+      <router-link to="/" class="logo">森林</router-link>
       <div class="nav-links">
         <router-link to="/" :class="{ active: route.path === '/' }">文章</router-link>
         <router-link to="/about" :class="{ active: route.path === '/about' }">关于</router-link>
